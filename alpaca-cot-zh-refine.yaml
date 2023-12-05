@@ -1,0 +1,55 @@
+# global parameters
+project_name: 'Data-Juicer-recipes-alpaca-cot-en'
+dataset_path: "/home/vot/votssd/code/ChenHu/HLLY/competition_kit/data/quality_classifier/05/dealed_data_0.98_2.jsonl"  # path to your dataset directory or file
+
+#------修改1--------------
+export_path: '/home/vot/votssd/code/ChenHu/HLLY/competition_kit/data/processed_data/09/processed_data_zh.jsonl'
+
+np: 1 # number of subprocess to process your dataset
+open_tracer: true
+
+#------修改2--------------
+process:
+#   - stopwords_filter: # 去除经典无用词汇
+#       lang: 'zh'
+
+  - document_simhash_deduplicator:  # 去重
+      tokenization: space
+      window_size: 3
+      lowercase: true
+      ignore_pattern: '\p{P}'
+      num_blocks: 9 #9
+      hamming_distance: 7 # 7
+#   - token_num_filter: # token长度限制(网络访问问题，暂不能用)
+#       min_num: 10
+#       max_num: 500
+    
+#   - alphanumeric_filter: # 104636381
+#       tokenization: false
+#       min_ratio: 0.1  
+  - character_repetition_filter: # 去重重复性高的文本
+      rep_len: 10
+      max_ratio: 0.8 # 0.6
+#   - flagged_words_filter: # 104576967
+#       lang: en
+#       tokenization: true
+#       max_ratio: 0.017  
+#   - maximum_line_length_filter: # 104575811
+#       min_len: 20
+#   - text_length_filter: # 104573711
+#       min_len: 30 
+
+
+#   - perplexity_filter: # 复杂度过滤
+#       max_ppl: 10000
+
+#   - stopwords_filter: # 去除经典无用词汇
+#       lang: 'zh'
+    
+  - document_simhash_deduplicator:  # 去重
+      tokenization: space
+      window_size: 3
+      lowercase: true
+      ignore_pattern: '\p{P}'
+      num_blocks: 9 #9
+      hamming_distance: 7 # 7
